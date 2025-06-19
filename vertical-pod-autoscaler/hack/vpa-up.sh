@@ -22,8 +22,8 @@ SCRIPT_ROOT=$(dirname ${BASH_SOURCE})/..
 DEFAULT_TAG="1.4.1"
 TAG_TO_APPLY=${TAG-$DEFAULT_TAG}
 
-if [ "${TAG_TO_APPLY}" == "${DEFAULT_TAG}" ]; then
-  git switch --detach vertical-pod-autoscaler-${DEFAULT_TAG}
-fi
+# if [ "${TAG_TO_APPLY}" == "${DEFAULT_TAG}" ]; then
+#   git switch --detach vertical-pod-autoscaler-${DEFAULT_TAG}
+# fi
 
 $SCRIPT_ROOT/hack/vpa-process-yamls.sh apply $*
