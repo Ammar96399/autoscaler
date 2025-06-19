@@ -8,12 +8,12 @@ Cluster autoscaler must run on v1.8.6 or greater.
 
 ### 1 ASG Setup (min: 1, max: 10, ASG Name: k8s-worker-asg-1)
 ```
-sudo k0s apply -f examples/cluster-autoscaler-one-asg.yaml
+sudo k0s kubectl apply -f examples/cluster-autoscaler-one-asg.yaml
 ```
 
 ### Multiple ASG Setup (min: 1, max: 10, ASG Name: k8s-worker-asg-1, min: 1, max: 10, ASG Name: k8s-worker-asg-2)
 ```
-sudo k0s apply -f examples/cluster-autoscaler-multiple-asg.yaml
+sudo k0s kubectl apply -f examples/cluster-autoscaler-multiple-asg.yaml
 ```
 
 ## Common Notes and Gotchas:

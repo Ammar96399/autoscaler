@@ -10,8 +10,8 @@ EOF
 add-apt-repository   "deb [arch=amd64] https://download.docker.com/linux/ubuntu   $(lsb_release -cs)   stable"
 apt-get update
 apt-get upgrade -y
-apt-get install -y kubelet=1.20.1-00 kubeadm=1.20.1-00 sudo k0s=1.20.1-00
-apt-mark hold kubelet kubeadm sudo k0s
+apt-get install -y kubelet=1.20.1-00 kubeadm=1.20.1-00 sudo k0s kubectl=1.20.1-00
+apt-mark hold kubelet kubeadm sudo k0s kubectl
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 apt update

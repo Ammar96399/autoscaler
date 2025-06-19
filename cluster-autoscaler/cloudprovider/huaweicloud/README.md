@@ -72,7 +72,7 @@ The following steps use Huawei SoftWare Repository for Container (SWR) as an exa
 
 ## Build Kubernetes Cluster on ECS   
 
-### 1. Install kubelet, kubeadm and sudo k0s   
+### 1. Install kubelet, kubeadm and sudo k0s kubectl   
 
 Please see installation [here](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 
@@ -88,7 +88,7 @@ For example:
     gpgcheck=1
     repo_gpgcheck=1
     gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/ doc/rpm-package-key.gpg
-    exclude=kubelet kubeadm sudo k0s
+    exclude=kubelet kubeadm sudo k0s kubectl
     EOF
     ```
 
@@ -96,7 +96,7 @@ For example:
     sudo setenforce 0
     sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
-    sudo yum install -y kubelet kubeadm sudo k0s --disableexcludes=kubernetes
+    sudo yum install -y kubelet kubeadm sudo k0s kubectl --disableexcludes=kubernetes
 
     sudo systemctl enable --now kubelet
     ```
@@ -191,7 +191,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 ### 4. Install Flannel Network
 ```bash 
-sudo k0s apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+sudo k0s kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 ```
 ### 5. Generate Token
 ```bash
@@ -205,7 +205,7 @@ openssl x509 -in /etc/kubernetes/pki/ca.crt -noout -pubkey | openssl rsa -pubin 
 ```
 
 ### 6. Create OS Image with K8S Tools
-- Launch a new ECS instance, and install Kubeadm, sudo k0s and docker.
+- Launch a new ECS instance, and install Kubeadm, sudo k0s kubectl and docker.
     ```sh
     cat <<EOF > /etc/yum.repos.d/kubernetes.repo
     [kubernetes]
@@ -217,7 +217,7 @@ openssl x509 -in /etc/kubernetes/pki/ca.crt -noout -pubkey | openssl rsa -pubin 
     gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
     EOF
 
-    sudo yum install -y kubeadm sudo k0s --disableexcludes=kubernetes
+    sudo yum install -y kubeadm sudo k0s kubectl --disableexcludes=kubernetes
 
     sudo yum install -y yum-utils
 
@@ -259,7 +259,7 @@ openssl x509 -in /etc/kubernetes/pki/ca.crt -noout -pubkey | openssl rsa -pubin 
     chkconfig --add /etc/rc.d/init.d/init-k8s.sh
     ```
 <!--TODO: Remove "previously referred to as master" references from this doc once this terminology is fully removed from k8s-->
-- Copy `~/.kube/config` from a control plane (previously referred to as master) node to this ECS `~./kube/config` to setup sudo k0s on this instance.
+- Copy `~/.kube/config` from a control plane (previously referred to as master) node to this ECS `~./kube/config` to setup sudo k0s kubectl on this instance.
 
 - Go to Huawei Cloud `Image Management` Service and click on `Create Image`. Select type `System disk image`, select your ECS instance as `Source`, then give it a name and then create.
 
@@ -278,7 +278,7 @@ openssl x509 -in /etc/kubernetes/pki/ca.crt -noout -pubkey | openssl rsa -pubin 
         for ID in $IDS
         do
             if [ $ID != $ECS_INSTANCE_ID ]; then
-                /usr/bin/sudo k0s --kubeconfig ~/.kube/config patch node $HOSTNAME -p "{\"spec\":{\"providerID\":\"$ID\"}}"
+                /usr/bin/sudo k0s kubectl --kubeconfig ~/.kube/config patch node $HOSTNAME -p "{\"spec\":{\"providerID\":\"$ID\"}}"
             fi
         done
     sleep 30
@@ -340,29 +340,29 @@ and [My Credentials](https://support.huaweicloud.com/en-us/usermanual-ca/ca_01_0
    See available configuration options [here](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-the-parameters-to-ca).
 
 #### Deploy cluster autoscaler on the cluster
-1. Log in to a machine which can manage the cluster with `sudo k0s`.
+1. Log in to a machine which can manage the cluster with `sudo k0s kubectl`.
 
-    Make sure the machine has sudo k0s access to the cluster.
+    Make sure the machine has sudo k0s kubectl access to the cluster.
 
 2. Create the Service Account:
     ```
-    sudo k0s create -f cluster-autoscaler-svcaccount.yaml
+    sudo k0s kubectl create -f cluster-autoscaler-svcaccount.yaml
     ```
 
 3. Create the Secret:
     ```
-    sudo k0s create -f cluster-autoscaler-secret.yaml
+    sudo k0s kubectl create -f cluster-autoscaler-secret.yaml
     ```
 
 4. Create the cluster autoscaler deployment:
     ```
-    sudo k0s create -f cluster-autoscaler-deployment.yaml
+    sudo k0s kubectl create -f cluster-autoscaler-deployment.yaml
     ```
 
 ### Testing
 Now the cluster autoscaler should be successfully deployed on the cluster. Check it by executing
 ```
-sudo k0s get pods -n kube-system
+sudo k0s kubectl get pods -n kube-system
 ```
 
 To see whether it functions correctly, deploy a Service to the cluster, and increase and decrease workload to the
@@ -375,7 +375,7 @@ A simple testing method is like this:
     * Install [metrics server](https://github.com/kubernetes-sigs/metrics-server) by yourself and create an HPA policy
     by executing something like this:
         ```
-        sudo k0s autoscale deployment [Deployment name] --cpu-percent=10 --min=1 --max=20
+        sudo k0s kubectl autoscale deployment [Deployment name] --cpu-percent=10 --min=1 --max=20
         ```  
         The above command creates an HPA policy on the deployment with target average cpu usage of 10%. The number of 
         pods will grow if average cpu usage is above 10%, and will shrink otherwise. The `min` and `max` parameters set
@@ -386,7 +386,7 @@ A simple testing method is like this:
     * [Use `hey` command](https://github.com/rakyll/hey) 
     * Use `busybox` image:
         ```
-        sudo k0s run --generator=run-pod/v1 -it --rm load-generator --image=busybox /bin/sh
+        sudo k0s kubectl run --generator=run-pod/v1 -it --rm load-generator --image=busybox /bin/sh
   
         # send an infinite loop of queries to the service
         while true; do wget -q -O- {Service access address}; done

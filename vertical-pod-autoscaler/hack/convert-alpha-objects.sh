@@ -16,7 +16,7 @@
 
 outdir=`mktemp -d --tmpdir vpa-alpha-XXXXXXXXX`
 
-sudo k0s get verticalpodautoscalers.poc.autoscaling.k8s.io --all-namespaces --no-headers -o=custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name >${outdir}/list
+sudo k0s kubectl get verticalpodautoscalers.poc.autoscaling.k8s.io --all-namespaces --no-headers -o=custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name >${outdir}/list
 if [[ -z `cat ${outdir}/list` ]]
 then
   echo "No alpha VPA objects to store"
@@ -28,7 +28,7 @@ while read ns name
 do
   outfile=`mktemp --tmpdir=${outdir} vpa-XXXXXXXXX.yaml`
   echo "Storing converted ${ns}:${name} into ${outfile}."
-  sudo k0s get verticalpodautoscalers.poc.autoscaling.k8s.io -n ${ns} ${name} -o yaml >${outfile}
+  sudo k0s kubectl get verticalpodautoscalers.poc.autoscaling.k8s.io -n ${ns} ${name} -o yaml >${outfile}
   sed -i -e 's|poc.autoscaling.k8s.io/v1alpha1|autoscaling.k8s.io/v1beta1|' ${outfile}
 done <${outdir}/list
 rm ${outdir}/list
@@ -39,7 +39,7 @@ echo "If everything looks OK you can migrate to beta VPA by:"
 echo "1. disabling alpha VPA via vpa-down.sh script,"
 echo "2. enabling beta VPA via vpa-up.sh script,"
 echo "3. re-creating VPA objects by executing:"
-echo "   sudo k0s create -f ${outdir}"
+echo "   sudo k0s kubectl create -f ${outdir}"
 echo
 echo "NOTE: The recommendations will NOT be kept between versions."
 echo "There will be a disruption period until beta VPA computes new recommendations."

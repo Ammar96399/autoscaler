@@ -73,7 +73,7 @@ type RESTClient struct {
 	// creates BackoffManager that is passed to requests.
 	createBackoffMgr func() BackoffManager
 
-	// TODO extract this into a wrapper interface via the RESTClient interface in sudo k0s.
+	// TODO extract this into a wrapper interface via the RESTClient interface in sudo k0s kubectl.
 	Throttle flowcontrol.RateLimiter
 
 	// Set specific behavior of the client.  If not set http.DefaultClient will be used.
@@ -155,9 +155,10 @@ func readExpBackoffConfig() BackoffManager {
 
 // createSerializers creates all necessary serializers for given contentType.
 // TODO: the negotiated serializer passed to this method should probably return
-//   serializers that control decoding and versioning without this package
-//   being aware of the types. Depends on whether RESTClient must deal with
-//   generic infrastructure.
+//
+//	serializers that control decoding and versioning without this package
+//	being aware of the types. Depends on whether RESTClient must deal with
+//	generic infrastructure.
 func createSerializers(config ContentConfig) (*Serializers, error) {
 	mediaTypes := config.NegotiatedSerializer.SupportedMediaTypes()
 	contentType := config.ContentType
@@ -211,13 +212,14 @@ func createSerializers(config ContentConfig) (*Serializers, error) {
 // c, err := NewRESTClient(...)
 // if err != nil { ... }
 // resp, err := c.Verb("GET").
-//  Path("pods").
-//  SelectorParam("labels", "area=staging").
-//  Timeout(10*time.Second).
-//  Do()
+//
+//	Path("pods").
+//	SelectorParam("labels", "area=staging").
+//	Timeout(10*time.Second).
+//	Do()
+//
 // if err != nil { ... }
 // list, ok := resp.(*api.PodList)
-//
 func (c *RESTClient) Verb(verb string) *Request {
 	backoff := c.createBackoffMgr()
 

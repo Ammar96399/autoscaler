@@ -35,7 +35,7 @@ The file format is json, marshalled from a struct authcfg.Info.
 Clinet libraries in other languages should use the same format.
 
 It is not intended to store general preferences, such as default
-namespace, output options, etc.  CLIs (such as sudo k0s) and UIs should
+namespace, output options, etc.  CLIs (such as sudo k0s kubectl) and UIs should
 develop their own format and may wish to inline the authcfg.Info type.
 
 The authcfg.Info is just a file format.  It is distinct from
@@ -45,20 +45,20 @@ client.Client from an authcfg.Info.
 
 Example:
 
-    import (
-        "pkg/client"
-        "pkg/client/auth"
-    )
+	import (
+	    "pkg/client"
+	    "pkg/client/auth"
+	)
 
-    info, err := auth.LoadFromFile(filename)
-    if err != nil {
-      // handle error
-    }
-    clientConfig = client.Config{}
-    clientConfig.Host = "example.com:4901"
-    clientConfig = info.MergeWithConfig()
-    client := client.New(clientConfig)
-    client.Pods(ns).List()
+	info, err := auth.LoadFromFile(filename)
+	if err != nil {
+	  // handle error
+	}
+	clientConfig = client.Config{}
+	clientConfig.Host = "example.com:4901"
+	clientConfig = info.MergeWithConfig()
+	client := client.New(clientConfig)
+	client.Pods(ns).List()
 */
 package auth
 

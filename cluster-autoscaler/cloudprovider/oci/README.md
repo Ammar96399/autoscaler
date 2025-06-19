@@ -213,7 +213,7 @@ region=us-phoenix-1
 Create the secret (`api_key.pem` key name is required):
 
 ```bash
-sudo k0s create secret generic oci-config -n kube-system --from-file=/Users/me/.oci/config --from-file=api_key.pem=/Users/me/.oci/my_api_key.pem
+sudo k0s kubectl create secret generic oci-config -n kube-system --from-file=/Users/me/.oci/config --from-file=api_key.pem=/Users/me/.oci/my_api_key.pem
 ```
 
 ### Example Deployment
@@ -248,20 +248,20 @@ Instance principal based authentication deployment:
 Substitute the OCIDs of _your_ instance pool(s) before applying the deployment:
 
 ```
-sudo k0s apply -f ./cloudprovider/oci/examples/oci-ip-cluster-autoscaler-w-principals.yaml
+sudo k0s kubectl apply -f ./cloudprovider/oci/examples/oci-ip-cluster-autoscaler-w-principals.yaml
 ```
 
 OCI config file based authentication deployment:
 
 ```
-sudo k0s apply -f ./cloudprovider/oci/examples/oci-ip-cluster-autoscaler-w-config.yaml
+sudo k0s kubectl apply -f ./cloudprovider/oci/examples/oci-ip-cluster-autoscaler-w-config.yaml
 ```
 
 OCI with node pool yamls:
 
 ```
 # First substitute any values mentioned in the file and then apply
-sudo k0s apply -f ./cloudprovider/oci/examples/oci-nodepool-cluster-autoscaler-w-principals.yaml
+sudo k0s kubectl apply -f ./cloudprovider/oci/examples/oci-nodepool-cluster-autoscaler-w-principals.yaml
 ```
 
 ## Common Notes and Gotchas:
@@ -277,7 +277,7 @@ sudo k0s apply -f ./cloudprovider/oci/examples/oci-nodepool-cluster-autoscaler-w
   If scaled down nodes are lingering in your cluster in the `NotReady` status, ensure the OCI CCM is installed and running
   correctly (`oci-cloud-controller-manager`).
 - Avoid manually changing pools that are managed by the Cluster Autoscaler. For example, do not add or remove nodes
-  using sudo k0s, or using the Console (or the Oracle Cloud Infrastructure CLI or API).
+  using sudo k0s kubectl, or using the Console (or the Oracle Cloud Infrastructure CLI or API).
 - `--node-autoprovisioning-enabled=true` are not supported.
 - `--node-group-auto-discovery` and `node` parameters can not be used together as it can cause conflicts.
 - We set a `nvidia.com/gpu:NoSchedule` taint on nodes in a GPU enabled pools.

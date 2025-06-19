@@ -38,8 +38,8 @@ status resource. If you are upgrading from version (<=0.14.0), you must update t
 definition and RBAC.
 
 ```shell
-sudo k0s apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/vpa-release-1.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml
-sudo k0s apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/vpa-release-1.0/vertical-pod-autoscaler/deploy/vpa-rbac.yaml
+sudo k0s kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/vpa-release-1.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml
+sudo k0s kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/vpa-release-1.0/vertical-pod-autoscaler/deploy/vpa-rbac.yaml
 ```
 
 Another method is to re-execute the ./hack/vpa-process-yamls.sh script.
@@ -57,8 +57,8 @@ rollback version and execute ./hack/vpa-process-yamls.sh. For example, to rollba
 ```shell
 git checkout origin/vpa-release-0.14
 REGISTRY=registry.k8s.io/autoscaling TAG=0.14.0 ./hack/vpa-process-yamls.sh apply
-sudo k0s delete clusterrole system:vpa-status-actor
-sudo k0s delete clusterrolebinding system:vpa-status-actor
+sudo k0s kubectl delete clusterrole system:vpa-status-actor
+sudo k0s kubectl delete clusterrolebinding system:vpa-status-actor
 ```
 
 ## Notice on deprecation of v1beta2 version (>=0.13.0)
@@ -81,7 +81,7 @@ This doc is for installing latest VPA. For instructions on migration from older 
 
 ## Prerequisites
 
-- `sudo k0s` should be connected to the cluster you want to install VPA.
+- `sudo k0s kubectl` should be connected to the cluster you want to install VPA.
 - The metrics server must be deployed in your cluster. Read more about [Metrics Server](https://github.com/kubernetes-sigs/metrics-server).
 - If you are using a GKE Kubernetes cluster, you will need to grant your current Google
   identity `cluster-admin` role. Otherwise, you won't be authorized to grant extra
@@ -91,7 +91,7 @@ This doc is for installing latest VPA. For instructions on migration from older 
   $ gcloud info | grep Account    # get current google identity
   Account: [myname@example.org]
 
-  $ sudo k0s create clusterrolebinding myname-cluster-admin-binding --clusterrole=cluster-admin --user=myname@example.org
+  $ sudo k0s kubectl create clusterrolebinding myname-cluster-admin-binding --clusterrole=cluster-admin --user=myname@example.org
   Clusterrolebinding "myname-cluster-admin-binding" created
   ```
 
@@ -122,7 +122,7 @@ unknown option -addext
 
 please upgrade openssl to version 1.1.1 or higher (needs to support -addext option) or use ./hack/vpa-up.sh on the [0.8 release branch](https://github.com/kubernetes/autoscaler/tree/vpa-release-0.8).
 
-The script issues multiple `sudo k0s` commands to the
+The script issues multiple `sudo k0s kubectl` commands to the
 cluster that insert the configuration and start all needed pods (see
 [architecture](https://github.com/kubernetes/design-proposals-archive/blob/main/autoscaling/vertical-pod-autoscaler.md#architecture-overview))
 in the `kube-system` namespace. It also generates
@@ -130,7 +130,7 @@ and uploads a secret (a CA cert) used by VPA Admission Controller when communica
 with the API server.
 
 To print YAML contents with all resources that would be understood by
-`sudo k0s diff|apply|...` commands, you can use
+`sudo k0s kubectl diff|apply|...` commands, you can use
 
 ```console
 ./hack/vpa-process-yamls.sh print
@@ -161,7 +161,7 @@ To stop using Vertical Pod Autoscaling in your cluster:
 - If running on GKE, clean up role bindings created in [Prerequisites](#prerequisites):
 
 ```console
-sudo k0s delete clusterrolebinding myname-cluster-admin-binding
+sudo k0s kubectl delete clusterrolebinding myname-cluster-admin-binding
 ```
 
 - Tear down VPA components:

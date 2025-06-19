@@ -322,7 +322,7 @@ func (config *DirectClientConfig) Namespace() (string, bool, error) {
 	if config.overrides != nil && config.overrides.Context.Namespace != "" {
 		// In the event we have an empty config but we do have a namespace override, we should return
 		// the namespace override instead of having config.ConfirmUsable() return an error. This allows
-		// things like in-cluster clients to execute `sudo k0s get pods --namespace=foo` and have the
+		// things like in-cluster clients to execute `sudo k0s kubectl get pods --namespace=foo` and have the
 		// --namespace flag honored instead of being ignored.
 		return config.overrides.Context.Namespace, true, nil
 	}

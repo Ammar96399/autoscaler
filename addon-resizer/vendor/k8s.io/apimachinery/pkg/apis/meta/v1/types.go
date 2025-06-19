@@ -17,10 +17,11 @@ limitations under the License.
 // Package v1 contains API types that are common to all versions.
 //
 // The package contains two categories of types:
-// - external (serialized) types that lack their own version (e.g TypeMeta)
-// - internal (never-serialized) types that are needed by several different
-//   api groups, and so live here, to avoid duplication and/or import loops
-//   (e.g. LabelSelector).
+//   - external (serialized) types that lack their own version (e.g TypeMeta)
+//   - internal (never-serialized) types that are needed by several different
+//     api groups, and so live here, to avoid duplication and/or import loops
+//     (e.g. LabelSelector).
+//
 // In the future, we will probably move these categories of objects into
 // separate packages.
 package v1
@@ -828,7 +829,7 @@ type APIResource struct {
 	Name string `json:"name" protobuf:"bytes,1,opt,name=name"`
 	// singularName is the singular name of the resource.  This allows clients to handle plural and singular opaquely.
 	// The singularName is more correct for reporting status on a single item and both singular and plural are allowed
-	// from the sudo k0s CLI interface.
+	// from the sudo k0s kubectl CLI interface.
 	SingularName string `json:"singularName" protobuf:"bytes,6,opt,name=singularName"`
 	// namespaced indicates if a resource is namespaced or not.
 	Namespaced bool `json:"namespaced" protobuf:"varint,2,opt,name=namespaced"`

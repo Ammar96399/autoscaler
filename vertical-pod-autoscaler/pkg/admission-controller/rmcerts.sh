@@ -20,5 +20,5 @@
 set -e
 
 echo "Deleting VPA Admission Controller certs."
-sudo k0s delete secret --namespace=kube-system vpa-tls-certs --ignore-not-found
-sudo k0s delete secret --namespace=kube-system vpa-e2e-certs --ignore-not-found
+sudo k0s kubectl delete secret --namespace=kube-system vpa-tls-certs --ignore-not-found
+sudo k0s kubectl delete secret --namespace=kube-system vpa-e2e-certs --ignore-not-found

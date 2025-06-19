@@ -33,14 +33,14 @@ The access token needs to be able to execute the `listKubernetesClusters` and `s
 
 To create the secret, use the following command:
 ```bash
-sudo k0s -n kube-system create secret generic cloudstack-secret --from-file=cloud-config
+sudo k0s kubectl -n kube-system create secret generic cloudstack-secret --from-file=cloud-config
 ```
 
 Finally, to deploy the autoscaler, modify the `cluster-autoscaler-standard.yaml` with the cluster id, minsize and maxsize located
 [here](./examples/cluster-autoscaler-standard.yaml) and execute it
 
 ```
-sudo k0s apply -f cluster-autoscaler-standard.yaml
+sudo k0s kubectl apply -f cluster-autoscaler-standard.yaml
 ```
 
 ## Common Notes and Gotchas:

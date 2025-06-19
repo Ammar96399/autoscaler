@@ -44,7 +44,7 @@ Replace `"release"="prom"` with the label selector for `ServiceMonitor` in your 
 
 For example, if you are using the prometheus operator, you can find the service monitor label selector using
 ```shell
-sudo k0s get prometheus -ojsonpath='{.items[*].spec.serviceMonitorSelector}' | jq # using jq is optional
+sudo k0s kubectl get prometheus -ojsonpath='{.items[*].spec.serviceMonitorSelector}' | jq # using jq is optional
 ```
 Here's what it looks like
 ![](./docs/images/prom-match-labels.png)
@@ -75,9 +75,9 @@ If you want to use static template nodes,
 `kwok-provider-config` ConfigMap in the helm chart by default is set to use static template nodes (`readNodesFrom` is set to `configmap`). CA helm chart also installs a `kwok-provider-templates` ConfigMap with sample node yamls by default. If you want to use your own node yamls,
 ```shell
 # delete the existing configmap
-sudo k0s delete configmap kwok-provider-templates
+sudo k0s kubectl delete configmap kwok-provider-templates
 # create a new configmap with your node yamls
-sudo k0s create configmap kwok-provider-templates --from-file=templates=template-nodes.yaml
+sudo k0s kubectl create configmap kwok-provider-templates --from-file=templates=template-nodes.yaml
 ```
 Replace `template-nodes.yaml` with the path to your template nodes file.
 
@@ -95,9 +95,9 @@ using [`kubectx`](https://github.com/ahmetb/kubectx):
 ```
 kubectx <cluster-name>
 ```
-Using `sudo k0s`:
+Using `sudo k0s kubectl`:
 ```
-sudo k0s config get-contexts
+sudo k0s kubectl config get-contexts
 
 ```
 2. Create `kwok-provider-config` and `kwok-provider-templates` ConfigMap in the cluster you want to test your changes.
@@ -107,7 +107,7 @@ This is important because even if you run CA locally with the kwok provider, the
 You can create both the ConfigMap resources from the helm chart like this:
 
 ```shell
-helm template charts/cluster-autoscaler/  --set "cloudProvider"="kwok" -s templates/configmap.yaml --namespace=default | sudo k0s apply -f -
+helm template charts/cluster-autoscaler/  --set "cloudProvider"="kwok" -s templates/configmap.yaml --namespace=default | sudo k0s kubectl apply -f -
 ```
 `--namespace` has to match `POD_NAMESPACE` env variable you set below.
 
@@ -116,9 +116,9 @@ helm template charts/cluster-autoscaler/  --set "cloudProvider"="kwok" -s templa
 ```shell
 # replace `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT`
 # with your kubernetes api server url
-# you can find it with `sudo k0s cluster-info`
+# you can find it with `sudo k0s kubectl cluster-info`
 # example:
-# $ sudo k0s cluster-info
+# $ sudo k0s kubectl cluster-info
 # Kubernetes control plane is running at https://127.0.0.1:36357
 # ...
 export KUBERNETES_SERVICE_HOST=https://127.0.0.1
@@ -186,7 +186,7 @@ configmap:
   key: kwok-config # default: config
 ```
 
-By default, the kwok provider looks for `kwok-provider-config` ConfigMap. If you want to use a different ConfigMap name, set the env variable `KWOK_PROVIDER_CONFIGMAP` (e.g., `KWOK_PROVIDER_CONFIGMAP=kpconfig`). You can set this env variable in the helm chart using `kwokConfigMapName` OR you can set it directly in the cluster-autoscaler Deployment with `sudo k0s edit deployment ...`.
+By default, the kwok provider looks for `kwok-provider-config` ConfigMap. If you want to use a different ConfigMap name, set the env variable `KWOK_PROVIDER_CONFIGMAP` (e.g., `KWOK_PROVIDER_CONFIGMAP=kpconfig`). You can set this env variable in the helm chart using `kwokConfigMapName` OR you can set it directly in the cluster-autoscaler Deployment with `sudo k0s kubectl edit deployment ...`.
 
 ### FAQ
 #### 1. What is the difference between `kwok` and the `kwok` provider?

@@ -39,7 +39,7 @@ The `cluster-autoscaler` is free to use, and we recommend not to use this projec
 You should be able to find the custom resource definition with:
 
 ```
-sudo k0s get crd nodepools.kube.cloud.ovh.com -o json
+sudo k0s kubectl get crd nodepools.kube.cloud.ovh.com -o json
 
 {
     "apiVersion": "apiextensions.k8s.io/v1",
@@ -56,14 +56,14 @@ sudo k0s get crd nodepools.kube.cloud.ovh.com -o json
 To know if your node pools auto-scaling is enabled, you can simply output the resources:
 
 ```
-sudo k0s get nodepools
+sudo k0s kubectl get nodepools
 
 NAME             FLAVOR   AUTO-SCALING     MONTHLY BILLED   ANTI AFFINITY   AGE
 nodepool-b2-7    b2-7     true             false            false           140d
 ...
 ```
 
-You should be able to edit the auto-scaling parameters using `sudo k0s edit` or by requesting the OVHcloud API.
+You should be able to edit the auto-scaling parameters using `sudo k0s kubectl edit` or by requesting the OVHcloud API.
 
 ## Development
 

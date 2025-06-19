@@ -260,7 +260,7 @@ Create an Exoscale API key with appropriate permissions as described in [cluster
 A secret of name `<release-name>-exoscale-cluster-autoscaler` needs to be created, containing the api key and secret, as well as the zone.
 
 ```console
-$ sudo k0s create secret generic my-release-exoscale-cluster-autoscaler \
+$ sudo k0s kubectl create secret generic my-release-exoscale-cluster-autoscaler \
     --from-literal=api-key="EXOxxxxxxxxxxxxxxxxxxxxxxxx" \
     --from-literal=api-secret="xxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" --from-literal=api-zone="ch-gva-2"
 ```
@@ -377,7 +377,7 @@ This is helpful when you need to inject values from configmap or secret.
 
 ## Troubleshooting
 
-The chart will succeed even if the container arguments are incorrect. A few minutes after starting `sudo k0s logs -l "app=aws-cluster-autoscaler" --tail=50` should loop through something like
+The chart will succeed even if the container arguments are incorrect. A few minutes after starting `sudo k0s kubectl logs -l "app=aws-cluster-autoscaler" --tail=50` should loop through something like
 
 ```
 polling_autoscaler.go:111] Poll finished

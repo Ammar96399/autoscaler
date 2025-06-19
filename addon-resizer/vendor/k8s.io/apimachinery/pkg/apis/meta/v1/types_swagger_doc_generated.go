@@ -51,7 +51,7 @@ func (APIGroupList) SwaggerDoc() map[string]string {
 var map_APIResource = map[string]string{
 	"":             "APIResource specifies the name of a resource and whether it is namespaced.",
 	"name":         "name is the plural name of the resource.",
-	"singularName": "singularName is the singular name of the resource.  This allows clients to handle plural and singular opaquely. The singularName is more correct for reporting status on a single item and both singular and plural are allowed from the sudo k0s CLI interface.",
+	"singularName": "singularName is the singular name of the resource.  This allows clients to handle plural and singular opaquely. The singularName is more correct for reporting status on a single item and both singular and plural are allowed from the sudo k0s kubectl CLI interface.",
 	"namespaced":   "namespaced indicates if a resource is namespaced or not.",
 	"group":        "group is the preferred group of the resource.  Empty implies the group of the containing resource list. For subresources, this may have a different value, for example: Scale\".",
 	"version":      "version is the preferred version of the resource.  Empty implies the version of the containing resource list For subresources, this may have a different value, for example: v1 (while inside a v1beta1 version of the core resource's group)\".",

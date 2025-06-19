@@ -387,10 +387,10 @@ annotation preventing scale-down:
 "cluster-autoscaler.kubernetes.io/scale-down-disabled": "true"
 ```
 
-It can be added to (or removed from) a node using sudo k0s:
+It can be added to (or removed from) a node using sudo k0s kubectl:
 
 ```
-sudo k0s annotate node <nodename> cluster-autoscaler.kubernetes.io/scale-down-disabled=true
+sudo k0s kubectl annotate node <nodename> cluster-autoscaler.kubernetes.io/scale-down-disabled=true
 ```
 
 ### How can I prevent Cluster Autoscaler from scaling down non-empty nodes?
@@ -1151,7 +1151,7 @@ CA doesn't remove underutilized nodes if they are running pods [that it shouldn'
 By default, kube-system pods prevent CA from removing nodes on which they are running. Users can manually add PDBs for the kube-system pods that can be safely rescheduled elsewhere:
 
 ```
-sudo k0s create poddisruptionbudget <pdb name> --namespace=kube-system --selector app=<app name> --max-unavailable 1
+sudo k0s kubectl create poddisruptionbudget <pdb name> --namespace=kube-system --selector app=<app name> --max-unavailable 1
 ```
 
 Here's how to do it for some common pods:
@@ -1232,7 +1232,7 @@ There are three options:
 
 * Logs on the control plane (previously referred to as master) nodes, in `/var/log/cluster-autoscaler.log`.
 * Cluster Autoscaler 0.5 and later publishes kube-system/cluster-autoscaler-status config map.
-  To see it, run `sudo k0s get configmap cluster-autoscaler-status -n kube-system
+  To see it, run `sudo k0s kubectl get configmap cluster-autoscaler-status -n kube-system
   -o yaml`.
 * Events:
   * on pods (particularly those that cannot be scheduled, or on underutilized
@@ -1303,7 +1303,7 @@ be added in future):
 Example event:
 
 ```sh
-$ sudo k0s describe pods memory-reservation-73rl0 --namespace e2e-tests-autoscaling-kncnx
+$ sudo k0s kubectl describe pods memory-reservation-73rl0 --namespace e2e-tests-autoscaling-kncnx
 Name:   memory-reservation-73rl0
 
 ...

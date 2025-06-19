@@ -32,7 +32,6 @@ import (
 
 	"github.com/golang/glog"
 	"golang.org/x/crypto/ssh/terminal"
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/runtime/serializer"
@@ -57,7 +56,7 @@ func init() {
 }
 
 var (
-	// Since transports can be constantly re-initialized by programs like sudo k0s,
+	// Since transports can be constantly re-initialized by programs like sudo k0s kubectl,
 	// keep a cache of initialized authenticators keyed by a hash of their config.
 	globalCache = newCache()
 	// The list of API versions we accept.
@@ -214,7 +213,7 @@ type roundTripper struct {
 
 func (r *roundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 	// If a user has already set credentials, use that. This makes commands like
-	// "sudo k0s get --token (token) pods" work.
+	// "sudo k0s kubectl get --token (token) pods" work.
 	if req.Header.Get("Authorization") != "" {
 		return r.base.RoundTrip(req)
 	}

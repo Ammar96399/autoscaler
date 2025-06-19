@@ -32,10 +32,10 @@ What version of the relevant component are you using? Either the image tag or he
 
 Component version:
 
-**What k8s version are you using (`sudo k0s version`)?**:
+**What k8s version are you using (`sudo k0s kubectl version`)?**:
 
-<details><summary><code>sudo k0s version</code> Output</summary><br><pre>
-$ sudo k0s version
+<details><summary><code>sudo k0s kubectl version</code> Output</summary><br><pre>
+$ sudo k0s kubectl version
 
 </pre></details>
 

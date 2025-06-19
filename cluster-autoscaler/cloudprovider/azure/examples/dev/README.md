@@ -20,4 +20,4 @@ This document, and directory are focused on the ability to deploy and test a wor
 
 9. run `skaffold run --filename cloudprovider/azure/examples/dev/skaffold.yaml`
 
-10. inspect the cluster with `sudo k0s`, and scale the `inflate` deployment for testing as desired.
+10. inspect the cluster with `sudo k0s kubectl`, and scale the `inflate` deployment for testing as desired.

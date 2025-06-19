@@ -101,9 +101,9 @@ You can check the brightbox-credentials secret by running the `check-env`
 job from the examples directory.
 
 ```
-$ sudo k0s apply -f examples/check-env.yaml
+$ sudo k0s kubectl apply -f examples/check-env.yaml
 job.batch/check-env created
-$ sudo k0s -n kube-system logs job/check-env
+$ sudo k0s kubectl -n kube-system logs job/check-env
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOSTNAME=check-env-hbh6m
 _BASH_GPG_KEY=7C0135FB088AAF6C66C650B9BB5869F064EA74AB
@@ -112,7 +112,7 @@ _BASH_PATCH_LEVEL=0
 _BASH_LATEST_PATCH=11
 BRIGHTBOX_KUBE_VERSION=1.17.0
 ...
-$ sudo k0s delete -f examples/check-env.yaml
+$ sudo k0s kubectl delete -f examples/check-env.yaml
 job.batch "check-env" deleted
 ```
 
@@ -142,11 +142,11 @@ Cluster autoscaler has many options that can be adjusted to better fit
 the needs of your application. To view them run
 
 ```
-$ sudo k0s create job ca-options --image=brightbox/cluster-autoscaler-brightbox:dev -- ./cluster-autoscaler -h
-$ sudo k0s log job/ca-options
+$ sudo k0s kubectl create job ca-options --image=brightbox/cluster-autoscaler-brightbox:dev -- ./cluster-autoscaler -h
+$ sudo k0s kubectl log job/ca-options
 ```
 
-Remove the job in the normal way with `sudo k0s delete job/ca-options`
+Remove the job in the normal way with `sudo k0s kubectl delete job/ca-options`
 
 You can read more details about some of the options in the [main FAQ](../../FAQ.md)
 

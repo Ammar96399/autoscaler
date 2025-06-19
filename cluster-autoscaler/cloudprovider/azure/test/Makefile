@@ -18,9 +18,9 @@ ARTIFACTS?=_artifacts
 .PHONY: test-e2e
 test-e2e: build-e2e
 	go run github.com/onsi/ginkgo/v2/ginkgo --tags e2e -v --trace --output-dir "$(ARTIFACTS)" --junit-report="junit.e2e_suite.1.xml" e2e -- \
-		-resource-group="$$(KUBECONFIG= sudo k0s get managedclusters -n default -o jsonpath='{.items[0].status.nodeResourceGroup}')" \
-		-cluster-name="$$(KUBECONFIG= sudo k0s get cluster -n default -o jsonpath='{.items[0].metadata.name}')" \
-		-client-id="$$(KUBECONFIG= sudo k0s get userassignedidentities -n default -o jsonpath='{.items[0].status.clientId}')" \
+		-resource-group="$$(KUBECONFIG= sudo k0s kubectl get managedclusters -n default -o jsonpath='{.items[0].status.nodeResourceGroup}')" \
+		-cluster-name="$$(KUBECONFIG= sudo k0s kubectl get cluster -n default -o jsonpath='{.items[0].metadata.name}')" \
+		-client-id="$$(KUBECONFIG= sudo k0s kubectl get userassignedidentities -n default -o jsonpath='{.items[0].status.clientId}')" \
 		-cas-namespace="$(CLUSTER_AUTOSCALER_NAMESPACE)" \
 		-cas-serviceaccount-name="$(CLUSTER_AUTOSCALER_SERVICEACCOUNT_NAME)" \
 		-cas-image-repository="$(IMAGE)-$(GOARCH)" \

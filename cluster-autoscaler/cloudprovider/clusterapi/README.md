@@ -376,7 +376,7 @@ these environment variables to set the namespace to deploy into as well as the i
 ```
 export AUTOSCALER_NS=kube-system
 export AUTOSCALER_IMAGE=registry.k8s.io/autoscaling/cluster-autoscaler:v1.29.0
-envsubst < examples/deployment.yaml | sudo k0s apply -f-
+envsubst < examples/deployment.yaml | sudo k0s kubectl apply -f-
 ```
 
 ### A note on permissions

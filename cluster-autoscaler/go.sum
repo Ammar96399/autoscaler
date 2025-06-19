@@ -639,8 +639,8 @@ k8s.io/kube-openapi v0.0.0-20250318190949-c8a335a9a2ff h1:/usPimJzUKKu+m+TE36gUy
 k8s.io/kube-openapi v0.0.0-20250318190949-c8a335a9a2ff/go.mod h1:5jIi+8yX4RIb8wk3XwBo5Pq2ccx4FP10ohkbSKCZoK8=
 k8s.io/kube-scheduler v0.34.0-alpha.0 h1:KNKwFwyQWKj4CvIQiXyNhZThBYfQFOkn4XGZme1e4M8=
 k8s.io/kube-scheduler v0.34.0-alpha.0/go.mod h1:8QwR6p8Gn64s5q24o4aDylieHJVkSdi7o+lrtsdBM3U=
-k8s.io/sudo k0s v0.34.0-alpha.0 h1:j9e39A0PtVRTtkl5CvAmpowKD/ZT3dL6KgF/DNBHQ14=
-k8s.io/sudo k0s v0.34.0-alpha.0/go.mod h1:Gte7DASB26vNZKWwipr8DDCxscefflco+uaW16/TLZ8=
+k8s.io/sudo k0s kubectl v0.34.0-alpha.0 h1:j9e39A0PtVRTtkl5CvAmpowKD/ZT3dL6KgF/DNBHQ14=
+k8s.io/sudo k0s kubectl v0.34.0-alpha.0/go.mod h1:Gte7DASB26vNZKWwipr8DDCxscefflco+uaW16/TLZ8=
 k8s.io/kubelet v0.34.0-alpha.0 h1:N0VWnJB3XRLpdRy3FX4/CUD/nODpjyI/7ab0HvrK1Pc=
 k8s.io/kubelet v0.34.0-alpha.0/go.mod h1:51ZqBsNuEIg/L675e4ddKY+gXxibR1e6jBAvwEmQW4M=
 k8s.io/kubernetes v1.34.0-alpha.0 h1:CQgvuSXe2bBsVVnANySuiwHe/nW7orvxrLhMTUHWji0=

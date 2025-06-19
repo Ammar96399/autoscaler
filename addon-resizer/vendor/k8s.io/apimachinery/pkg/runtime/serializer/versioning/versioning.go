@@ -175,7 +175,7 @@ func (c *codec) Encode(obj runtime.Object, w io.Writer) error {
 		// because the top-level type matches our desired destination type. actually send the object to the converter
 		// to give it a chance to convert the list items if needed.
 		if _, ok := obj.(*unstructured.UnstructuredList); !ok {
-			// avoid conversion roundtrip if GVK is the right one already or is empty (yes, this is a hack, but the old behaviour we rely on in sudo k0s)
+			// avoid conversion roundtrip if GVK is the right one already or is empty (yes, this is a hack, but the old behaviour we rely on in sudo k0s kubectl)
 			objGVK := obj.GetObjectKind().GroupVersionKind()
 			if len(objGVK.Version) == 0 {
 				return c.encoder.Encode(obj, w)
