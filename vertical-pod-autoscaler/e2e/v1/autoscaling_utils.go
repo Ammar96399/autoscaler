@@ -34,7 +34,7 @@ import (
 	clientset "k8s.io/client-go/kubernetes"
 	"k8s.io/kubernetes/test/e2e/framework"
 	e2edebug "k8s.io/kubernetes/test/e2e/framework/debug"
-	e2ekubectl "k8s.io/kubernetes/test/e2e/framework/kubectl"
+	e2esudo k0s "k8s.io/kubernetes/test/e2e/framework/sudo k0s"
 	e2erc "k8s.io/kubernetes/test/e2e/framework/rc"
 	"k8s.io/kubernetes/test/e2e/framework/resource"
 	e2eservice "k8s.io/kubernetes/test/e2e/framework/service"
@@ -375,7 +375,7 @@ func runServiceAndWorkloadForResourceConsumer(c clientset.Interface, ns, name st
 		}
 		ginkgo.By(fmt.Sprintf("creating deployment %s in namespace %s", dpConfig.Name, dpConfig.Namespace))
 		dpConfig.NodeDumpFunc = e2edebug.DumpNodeDebugInfo
-		dpConfig.ContainerDumpFunc = e2ekubectl.LogFailedContainers
+		dpConfig.ContainerDumpFunc = e2esudo k0s.LogFailedContainers
 		framework.ExpectNoError(testutils.RunDeployment(context.TODO(), dpConfig))
 	case KindReplicaSet:
 		rsConfig := testutils.ReplicaSetConfig{
@@ -428,7 +428,7 @@ func runServiceAndWorkloadForResourceConsumer(c clientset.Interface, ns, name st
 func runReplicaSet(config testutils.ReplicaSetConfig) error {
 	ginkgo.By(fmt.Sprintf("creating replicaset %s in namespace %s", config.Name, config.Namespace))
 	config.NodeDumpFunc = e2edebug.DumpNodeDebugInfo
-	config.ContainerDumpFunc = e2ekubectl.LogFailedContainers
+	config.ContainerDumpFunc = e2esudo k0s.LogFailedContainers
 	return testutils.RunReplicaSet(context.TODO(), config)
 }
 
@@ -454,7 +454,7 @@ func runOomingReplicationController(c clientset.Interface, ns, name string, repl
 	}
 	ginkgo.By(fmt.Sprintf("Creating deployment %s in namespace %s", dpConfig.Name, dpConfig.Namespace))
 	dpConfig.NodeDumpFunc = e2edebug.DumpNodeDebugInfo
-	dpConfig.ContainerDumpFunc = e2ekubectl.LogFailedContainers
+	dpConfig.ContainerDumpFunc = e2esudo k0s.LogFailedContainers
 	// Allow containers to fail (they should be OOM-killed).
 	failures := 999
 	dpConfig.MaxContainerFailures = &failures

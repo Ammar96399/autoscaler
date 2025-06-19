@@ -39,7 +39,7 @@ import (
 	"k8s.io/component-base/version"
 	"k8s.io/kubernetes/test/e2e/framework"
 	e2edebug "k8s.io/kubernetes/test/e2e/framework/debug"
-	e2ekubectl "k8s.io/kubernetes/test/e2e/framework/kubectl"
+	e2esudo k0s "k8s.io/kubernetes/test/e2e/framework/sudo k0s"
 	"k8s.io/kubernetes/test/e2e/framework/manifest"
 	e2emetrics "k8s.io/kubernetes/test/e2e/framework/metrics"
 
@@ -238,7 +238,7 @@ func setupSuite() {
 	// number equal to the number of allowed not-ready nodes).
 	if err := e2epod.WaitForPodsRunningReady(context.TODO(), c, metav1.NamespaceSystem, framework.TestContext.MinStartupPods, podStartupTimeout); err != nil {
 		e2edebug.DumpAllNamespaceInfo(context.TODO(), c, metav1.NamespaceSystem)
-		e2ekubectl.LogFailedContainers(context.TODO(), c, metav1.NamespaceSystem, framework.Logf)
+		e2esudo k0s.LogFailedContainers(context.TODO(), c, metav1.NamespaceSystem, framework.Logf)
 		runKubernetesServiceTestContainer(c, metav1.NamespaceDefault)
 		framework.Failf("Error waiting for all pods to be running and ready: %v", err)
 	}

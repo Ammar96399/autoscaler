@@ -57,7 +57,7 @@ func init() {
 }
 
 var (
-	// Since transports can be constantly re-initialized by programs like kubectl,
+	// Since transports can be constantly re-initialized by programs like sudo k0s,
 	// keep a cache of initialized authenticators keyed by a hash of their config.
 	globalCache = newCache()
 	// The list of API versions we accept.
@@ -214,7 +214,7 @@ type roundTripper struct {
 
 func (r *roundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 	// If a user has already set credentials, use that. This makes commands like
-	// "kubectl get --token (token) pods" work.
+	// "sudo k0s get --token (token) pods" work.
 	if req.Header.Get("Authorization") != "" {
 		return r.base.RoundTrip(req)
 	}

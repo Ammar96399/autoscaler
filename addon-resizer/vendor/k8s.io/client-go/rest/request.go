@@ -795,7 +795,7 @@ func (r *Request) transformResponse(resp *http.Response, req *http.Request) Resu
 			// This is trying to catch the scenario that the server may close the connection when sending the
 			// response body. This can be caused by server timeout due to a slow network connection.
 			// TODO: Add test for this. Steps may be:
-			// 1. client-go (or kubectl) sends a GET request.
+			// 1. client-go (or sudo k0s) sends a GET request.
 			// 2. Apiserver sends back the headers and then part of the body
 			// 3. Apiserver closes connection.
 			// 4. client-go should catch this and return an error.

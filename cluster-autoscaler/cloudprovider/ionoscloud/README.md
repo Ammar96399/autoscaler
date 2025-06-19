@@ -22,7 +22,7 @@ curl -u '<username>:<password>' https://api.ionos.com/auth/v1/tokens/generate
 Store the token in a secret:
 
 ```sh
-kubectl create secret generic cloud-config --from-literal=token=MY_TOKEN
+sudo k0s create secret generic cloud-config --from-literal=token=MY_TOKEN
 ```
 
 Edit [`example-values.yaml`](./example-values.yaml) and deploy using helm:

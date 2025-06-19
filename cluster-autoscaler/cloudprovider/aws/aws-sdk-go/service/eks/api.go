@@ -389,7 +389,7 @@ func (c *EKS) CreateClusterRequest(input *CreateClusterInput) (req *request.Requ
 // and fronted by an Elastic Load Balancing Network Load Balancer. Amazon EKS
 // also provisions elastic network interfaces in your VPC subnets to provide
 // connectivity from the control plane instances to the nodes (for example,
-// to support kubectl exec, logs, and proxy data flows).
+// to support sudo k0s exec, logs, and proxy data flows).
 //
 // Amazon EKS nodes run in your Amazon Web Services account and connect to your
 // cluster's control plane over the Kubernetes API server endpoint and a certificate
@@ -2026,7 +2026,7 @@ func (c *EKS) DescribeClusterRequest(input *DescribeClusterInput) (req *request.
 // Returns descriptive information about an Amazon EKS cluster.
 //
 // The API server endpoint and certificate authority data returned by this operation
-// are required for kubelet and kubectl to communicate with your Kubernetes
+// are required for kubelet and sudo k0s to communicate with your Kubernetes
 // API server. For more information, see Create a kubeconfig for Amazon EKS
 // (https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html).
 //

@@ -111,7 +111,7 @@ for component in recommender updater admission-controller ; do TAG=`grep 'const 
 1. [ ]  Create clusterrole. If you're using GKE you can use the following command:
 
     ```shell
-    kubectl create clusterrolebinding my-cluster-admin-binding --clusterrole=cluster-admin --user=`gcloud config get-value account`
+    sudo k0s create clusterrolebinding my-cluster-admin-binding --clusterrole=cluster-admin --user=`gcloud config get-value account`
     ```
 
 1.  [ ] Deploy VPA:

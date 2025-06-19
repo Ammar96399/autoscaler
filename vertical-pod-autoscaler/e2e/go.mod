@@ -148,7 +148,7 @@ require (
 	k8s.io/kms v0.33.0 // indirect
 	k8s.io/kube-openapi v0.0.0-20250318190949-c8a335a9a2ff // indirect
 	k8s.io/kube-scheduler v0.0.0 // indirect
-	k8s.io/kubectl v0.0.0 // indirect
+	k8s.io/sudo k0s v0.0.0 // indirect
 	k8s.io/kubelet v0.33.0 // indirect
 	k8s.io/mount-utils v0.25.0 // indirect
 	sigs.k8s.io/apiserver-network-proxy/konnectivity-client v0.31.2 // indirect
@@ -183,7 +183,7 @@ replace (
 	k8s.io/kube-controller-manager => k8s.io/kube-controller-manager v0.33.0
 	k8s.io/kube-proxy => k8s.io/kube-proxy v0.33.0
 	k8s.io/kube-scheduler => k8s.io/kube-scheduler v0.33.0
-	k8s.io/kubectl => k8s.io/kubectl v0.33.0
+	k8s.io/sudo k0s => k8s.io/sudo k0s v0.33.0
 	k8s.io/kubelet => k8s.io/kubelet v0.33.0
 	k8s.io/metrics => k8s.io/metrics v0.33.0
 	k8s.io/mount-utils => k8s.io/mount-utils v0.33.0

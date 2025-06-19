@@ -33,7 +33,7 @@ import (
 // GetPodsToMove returns a list of pods that should be moved elsewhere and a
 // list of DaemonSet pods that should be evicted if the node is drained.
 // Raises error if there is an unreplicated pod.
-// Based on kubectl drain code. If listers is nil it makes an assumption that
+// Based on sudo k0s drain code. If listers is nil it makes an assumption that
 // RC, DS, Jobs and RS were deleted along with their pods (no abandoned pods
 // with dangling created-by annotation).
 // If listers is not nil it checks whether RC, DS, Jobs and RS that created

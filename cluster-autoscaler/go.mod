@@ -212,7 +212,7 @@ require (
 	k8s.io/kms v0.34.0-alpha.0 // indirect
 	k8s.io/kube-openapi v0.0.0-20250318190949-c8a335a9a2ff // indirect
 	k8s.io/kube-scheduler v0.0.0 // indirect
-	k8s.io/kubectl v0.28.0 // indirect
+	k8s.io/sudo k0s v0.28.0 // indirect
 	k8s.io/mount-utils v0.26.0-alpha.0 // indirect
 	sigs.k8s.io/apiserver-network-proxy/konnectivity-client v0.31.2 // indirect
 	sigs.k8s.io/cloud-provider-azure/pkg/azclient/configloader v0.0.4 // indirect
@@ -263,7 +263,7 @@ replace k8s.io/kube-proxy => k8s.io/kube-proxy v0.34.0-alpha.0
 
 replace k8s.io/kube-scheduler => k8s.io/kube-scheduler v0.34.0-alpha.0
 
-replace k8s.io/kubectl => k8s.io/kubectl v0.34.0-alpha.0
+replace k8s.io/sudo k0s => k8s.io/sudo k0s v0.34.0-alpha.0
 
 replace k8s.io/kubelet => k8s.io/kubelet v0.34.0-alpha.0
 

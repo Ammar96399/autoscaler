@@ -118,7 +118,7 @@ Note that:
 * No min/max values are provided when using Auto-Discovery, cluster-autoscaler will detect the "min" and "max" tags on the VMSS resource in Azure, adjusting the desired number of nodes within these limits.
 
 ```
-kubectl apply -f examples/cluster-autoscaler-autodiscover.yaml
+sudo k0s apply -f examples/cluster-autoscaler-autodiscover.yaml
 ```
 
 #### Explicit setup
@@ -151,7 +151,7 @@ See the [FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autos
 Save the updated deployment manifest, then deploy cluster-autoscaler by running:
 
 ```sh
-kubectl create -f cluster-autoscaler-vmss.yaml
+sudo k0s create -f cluster-autoscaler-vmss.yaml
 ```
 
 <!--TODO: Remove "previously referred to as master" references from this doc once this terminology is fully removed from k8s-->
@@ -236,13 +236,13 @@ or to autoscale multiple VM scale sets:
 Create the Azure deploy parameters secret `cluster-autoscaler-azure-deploy-parameters` by running:
 
 ```sh
-kubectl -n kube-system create secret generic cluster-autoscaler-azure-deploy-parameters --from-file=deploy-parameters=./_output/<your-output-path>/azuredeploy.parameters.json
+sudo k0s -n kube-system create secret generic cluster-autoscaler-azure-deploy-parameters --from-file=deploy-parameters=./_output/<your-output-path>/azuredeploy.parameters.json
 ```
 
 Then deploy cluster-autoscaler by running:
 
 ```sh
-kubectl create -f cluster-autoscaler-standard-control-plane.yaml
+sudo k0s create -f cluster-autoscaler-standard-control-plane.yaml
 ```
 
 To run a cluster autoscaler pod with Azure managed service identity (MSI), use [cluster-autoscaler-standard-msi.yaml](examples/cluster-autoscaler-standard-msi.yaml) instead.

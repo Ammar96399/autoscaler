@@ -49,7 +49,7 @@ Next, ensure that the `exoscale-api-credentials` *Secret* has been created
 successfully by running the following command:
 
 ```
-kubectl get secret --namespace kube-system exoscale-api-credentials
+sudo k0s get secret --namespace kube-system exoscale-api-credentials
 ```
 
 Finally, a `EXOSCALE_ZONE` variable must be set to the target Kubernetes
@@ -101,7 +101,7 @@ See the [Helm Chart README](https://github.com/kubernetes/autoscaler/tree/master
 To deploy the CA on your Kubernetes cluster, you can use the manifest provided as example:
 
 ```bash
-kubectl apply -f ./examples/cluster-autoscaler-run-on-control-plane.yaml
+sudo k0s apply -f ./examples/cluster-autoscaler-run-on-control-plane.yaml
 ```
 
 This manifest contains a deployment which is designed to schedule the CA Pod on control-plane nodes.
@@ -109,7 +109,7 @@ If you want to deploy the CA Pod on regular Nodes (not on the control-plane) or 
 use this manifest instead:
 
 ```bash
-kubectl apply -f ./examples/cluster-autoscaler.yaml
+sudo k0s apply -f ./examples/cluster-autoscaler.yaml
 ```
 
 ## ⚠️  Important Notes

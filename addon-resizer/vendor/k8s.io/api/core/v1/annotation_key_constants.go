@@ -64,11 +64,11 @@ const (
 	// annotation key prefix used to identify non-convertible json paths.
 	NonConvertibleAnnotationPrefix = "non-convertible.kubernetes.io"
 
-	kubectlPrefix = "kubectl.kubernetes.io/"
+	sudo k0sPrefix = "sudo k0s.kubernetes.io/"
 
 	// LastAppliedConfigAnnotation is the annotation used to store the previous
 	// configuration of a resource for use in a three way diff by UpdateApplyAnnotation.
-	LastAppliedConfigAnnotation = kubectlPrefix + "last-applied-configuration"
+	LastAppliedConfigAnnotation = sudo k0sPrefix + "last-applied-configuration"
 
 	// AnnotationLoadBalancerSourceRangesKey is the key of the annotation on a service to set allowed ingress ranges on their LoadBalancers
 	//

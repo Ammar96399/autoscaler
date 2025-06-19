@@ -69,15 +69,15 @@ gcloud auth configure-docker -q
 for i in ${COMPONENTS}; do
   if [ $i == admission-controller ] ; then
     (cd ${SCRIPT_ROOT}/pkg/${i} && bash ./gencerts.sh e2e || true)
-    kubectl apply -f ${SCRIPT_ROOT}/deploy/admission-controller-service.yaml
+    sudo k0s apply -f ${SCRIPT_ROOT}/deploy/admission-controller-service.yaml
   fi
   ALL_ARCHITECTURES=amd64 make --directory ${SCRIPT_ROOT}/pkg/${i} release
 done
 
-kubectl create -f ${SCRIPT_ROOT}/deploy/vpa-v1-crd-gen.yaml
-kubectl create -f ${SCRIPT_ROOT}/deploy/vpa-rbac.yaml
+sudo k0s create -f ${SCRIPT_ROOT}/deploy/vpa-v1-crd-gen.yaml
+sudo k0s create -f ${SCRIPT_ROOT}/deploy/vpa-rbac.yaml
 
 for i in ${COMPONENTS}; do
-  ${SCRIPT_ROOT}/hack/vpa-process-yaml.sh  ${SCRIPT_ROOT}/deploy/${i}-deployment.yaml | kubectl create -f -
+  ${SCRIPT_ROOT}/hack/vpa-process-yaml.sh  ${SCRIPT_ROOT}/deploy/${i}-deployment.yaml | sudo k0s create -f -
 done
 

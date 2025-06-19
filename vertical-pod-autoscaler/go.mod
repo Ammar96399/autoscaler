@@ -95,7 +95,7 @@ replace (
 	k8s.io/kube-controller-manager => k8s.io/kube-controller-manager v0.33.0
 	k8s.io/kube-proxy => k8s.io/kube-proxy v0.33.0
 	k8s.io/kube-scheduler => k8s.io/kube-scheduler v0.33.0
-	k8s.io/kubectl => k8s.io/kubectl v0.33.0
+	k8s.io/sudo k0s => k8s.io/sudo k0s v0.33.0
 	k8s.io/kubelet => k8s.io/kubelet v0.33.0
 	k8s.io/metrics => k8s.io/metrics v0.33.0
 	k8s.io/mount-utils => k8s.io/mount-utils v0.33.0

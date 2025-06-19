@@ -23,7 +23,7 @@ SCRIPT_ROOT=$(dirname ${BASH_SOURCE})/..
 function print_help {
   echo "ERROR! Usage: vpa-process-yamls.sh <action> [<component>]"
   echo "<action> should be either 'create', 'diff', 'print' or 'delete'."
-  echo "The 'print' action will print all resources that would be used by, e.g., 'kubectl diff'."
+  echo "The 'print' action will print all resources that would be used by, e.g., 'sudo k0s diff'."
   echo "<component> might be one of 'admission-controller', 'updater', 'recommender'."
   echo "If <component> is set, only the deployment of that component will be processed,"
   echo "otherwise all components and configs will be processed."
@@ -66,11 +66,11 @@ for i in $COMPONENTS; do
     if [[ ${ACTION} == create || ${ACTION} == apply ]] ; then
       # Allow gencerts to fail silently if certs already exist
       (bash ${SCRIPT_ROOT}/pkg/admission-controller/gencerts.sh || true)
-      kubectl apply -f ${SCRIPT_ROOT}/deploy/admission-controller-service.yaml
+      sudo k0s apply -f ${SCRIPT_ROOT}/deploy/admission-controller-service.yaml
     elif [ ${ACTION} == delete ] ; then
       (bash ${SCRIPT_ROOT}/pkg/admission-controller/rmcerts.sh || true)
       (bash ${SCRIPT_ROOT}/pkg/admission-controller/delete-webhook.sh || true)
-      kubectl delete -f ${SCRIPT_ROOT}/deploy/admission-controller-service.yaml --ignore-not-found
+      sudo k0s delete -f ${SCRIPT_ROOT}/deploy/admission-controller-service.yaml --ignore-not-found
     fi
   fi
   if [[ ${ACTION} == print ]]; then
@@ -80,6 +80,6 @@ for i in $COMPONENTS; do
     if [[ ${ACTION} == delete ]]; then
       EXTRA_FLAGS+=" --ignore-not-found"
     fi
-    ${SCRIPT_ROOT}/hack/vpa-process-yaml.sh $(script_path $i) | kubectl ${ACTION} ${EXTRA_FLAGS} -f - || true
+    ${SCRIPT_ROOT}/hack/vpa-process-yaml.sh $(script_path $i) | sudo k0s ${ACTION} ${EXTRA_FLAGS} -f - || true
   fi
 done

@@ -37,7 +37,7 @@ var (
 	// TODO: Deprecate gitMajor and gitMinor, use only gitVersion
 	// instead. First step in deprecation, keep the fields but make
 	// them irrelevant. (Next we'll take it out, which may muck with
-	// scripts consuming the kubectl version output - but most of
+	// scripts consuming the sudo k0s version output - but most of
 	// these should be looking at gitVersion already anyways.)
 	gitMajor string = "" // major version, always numeric
 	gitMinor string = "" // minor version, numeric possibly followed by "+"

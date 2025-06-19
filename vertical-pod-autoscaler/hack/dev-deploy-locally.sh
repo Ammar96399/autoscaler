@@ -24,7 +24,7 @@ REQUIRED_COMMANDS="
 docker
 git
 go
-kubectl
+sudo k0s
 make
 "
 
@@ -47,7 +47,7 @@ then
   exit 1
 fi
 
-if ! kubectl version >/dev/null 2>&1
+if ! sudo k0s version >/dev/null 2>&1
 then
   echo "Kubernetes isn't running"
   echo
@@ -66,5 +66,5 @@ ${SCRIPT_ROOT}/hack/deploy-for-e2e-locally.sh full-vpa
 
 echo " ** Restarting all VPA components"
 for i in admission-controller updater recommender; do
-  kubectl -n kube-system rollout restart deployment/vpa-$i
+  sudo k0s -n kube-system rollout restart deployment/vpa-$i
 done

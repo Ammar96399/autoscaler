@@ -69,10 +69,10 @@ export TAG=${TAG:-latest}
 
 rm -f ${SCRIPT_ROOT}/hack/e2e/vpa-rbac.yaml
 patch -c ${SCRIPT_ROOT}/deploy/vpa-rbac.yaml -i ${SCRIPT_ROOT}/hack/e2e/vpa-rbac.diff -o ${SCRIPT_ROOT}/hack/e2e/vpa-rbac.yaml
-kubectl apply -f ${SCRIPT_ROOT}/hack/e2e/vpa-rbac.yaml
+sudo k0s apply -f ${SCRIPT_ROOT}/hack/e2e/vpa-rbac.yaml
 # Other-versioned CRDs are irrelevant as we're running a modern-ish cluster.
-kubectl apply -f ${SCRIPT_ROOT}/deploy/vpa-v1-crd-gen.yaml
-kubectl apply -f ${SCRIPT_ROOT}/hack/e2e/k8s-metrics-server.yaml
+sudo k0s apply -f ${SCRIPT_ROOT}/deploy/vpa-v1-crd-gen.yaml
+sudo k0s apply -f ${SCRIPT_ROOT}/hack/e2e/k8s-metrics-server.yaml
 
 for i in ${COMPONENTS}; do
   if [ $i == recommender-externalmetrics ] ; then
@@ -80,7 +80,7 @@ for i in ${COMPONENTS}; do
   fi
   if [ $i == admission-controller ] ; then
     (cd ${SCRIPT_ROOT}/pkg/${i} && bash ./gencerts.sh e2e || true)
-    kubectl apply -f ${SCRIPT_ROOT}/deploy/admission-controller-service.yaml
+    sudo k0s apply -f ${SCRIPT_ROOT}/deploy/admission-controller-service.yaml
   fi
   ALL_ARCHITECTURES=${ARCH} make --directory ${SCRIPT_ROOT}/pkg/${i} docker-build REGISTRY=${REGISTRY} TAG=${TAG}
   docker tag ${REGISTRY}/vpa-${i}-${ARCH}:${TAG} ${REGISTRY}/vpa-${i}:${TAG}
@@ -89,13 +89,13 @@ done
 
 for i in ${COMPONENTS}; do
   if [ $i == recommender-externalmetrics ] ; then
-     kubectl delete namespace monitoring --ignore-not-found=true
-     kubectl create namespace monitoring
-     kubectl apply -f ${SCRIPT_ROOT}/hack/e2e/prometheus.yaml
-     kubectl apply -f ${SCRIPT_ROOT}/hack/e2e/prometheus-adapter.yaml
-     kubectl apply -f ${SCRIPT_ROOT}/hack/e2e/metrics-pump.yaml
-     kubectl apply -f ${SCRIPT_ROOT}/hack/e2e/${i}-deployment.yaml
+     sudo k0s delete namespace monitoring --ignore-not-found=true
+     sudo k0s create namespace monitoring
+     sudo k0s apply -f ${SCRIPT_ROOT}/hack/e2e/prometheus.yaml
+     sudo k0s apply -f ${SCRIPT_ROOT}/hack/e2e/prometheus-adapter.yaml
+     sudo k0s apply -f ${SCRIPT_ROOT}/hack/e2e/metrics-pump.yaml
+     sudo k0s apply -f ${SCRIPT_ROOT}/hack/e2e/${i}-deployment.yaml
   else
-    REGISTRY=${REGISTRY} TAG=${TAG} ${SCRIPT_ROOT}/hack/vpa-process-yaml.sh ${SCRIPT_ROOT}/deploy/${i}-deployment.yaml | kubectl apply -f -
+    REGISTRY=${REGISTRY} TAG=${TAG} ${SCRIPT_ROOT}/hack/vpa-process-yaml.sh ${SCRIPT_ROOT}/deploy/${i}-deployment.yaml | sudo k0s apply -f -
   fi
 done

@@ -16,14 +16,14 @@
 
 function check_obsolete_cluster_role()
 {
-    kubectl get clusterrole system:admission-controller &> /dev/null
+    sudo k0s get clusterrole system:admission-controller &> /dev/null
     OBSOLETE_CLUSTERROLE_EXISTS=$?
     if [[ $ret -eq 0 ]]; then
-        kubectl get clusterrole system:admission-controller -o yaml 2>&1 | grep verticalpodautoscalers &> /dev/null
+        sudo k0s get clusterrole system:admission-controller -o yaml 2>&1 | grep verticalpodautoscalers &> /dev/null
         OBSOLETE_CLUSTERROLE_EXISTS=$?
     fi
 
-    kubectl get clusterrolebinding system:admission-controller &> /dev/null
+    sudo k0s get clusterrolebinding system:admission-controller &> /dev/null
     OBSOLETE_CLUSTERROLE_BINDING_EXISTS=$?
 }
 
@@ -38,7 +38,7 @@ if [[ ${OBSOLETE_CLUSTERROLE_EXISTS} -eq 0 ]]; then
     echo
     echo "You can inspect the object content by running"
     echo
-    echo "kubectl get clusterrole system:admission-controller -o yaml"
+    echo "sudo k0s get clusterrole system:admission-controller -o yaml"
     echo
 fi
 
@@ -51,6 +51,6 @@ if [[ ${OBSOLETE_CLUSTERROLE_BINDING_EXISTS} -eq 0 ]]; then
     echo
     echo "You can inspect the object content by running"
     echo
-    echo "kubectl get clusterrolebinding system:admission-controller -o yaml"
+    echo "sudo k0s get clusterrolebinding system:admission-controller -o yaml"
     echo
 fi

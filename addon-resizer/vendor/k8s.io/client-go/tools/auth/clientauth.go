@@ -35,7 +35,7 @@ The file format is json, marshalled from a struct authcfg.Info.
 Clinet libraries in other languages should use the same format.
 
 It is not intended to store general preferences, such as default
-namespace, output options, etc.  CLIs (such as kubectl) and UIs should
+namespace, output options, etc.  CLIs (such as sudo k0s) and UIs should
 develop their own format and may wish to inline the authcfg.Info type.
 
 The authcfg.Info is just a file format.  It is distinct from

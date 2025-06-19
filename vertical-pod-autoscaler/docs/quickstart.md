@@ -37,7 +37,7 @@ A simple way to check if Vertical Pod Autoscaler is fully operational in your
 cluster is to create a sample deployment and a corresponding VPA config:
 
 ```console
-kubectl create -f examples/hamster.yaml
+sudo k0s create -f examples/hamster.yaml
 ```
 
 The above command creates a deployment with two pods, each running a single container
@@ -49,7 +49,7 @@ updated with a higher CPU request
 of the pods are updated). To see VPA config and current recommended resource requests run:
 
 ```console
-kubectl describe vpa
+sudo k0s describe vpa
 ```
 
 *Note: if your cluster has little free capacity these pods may be unable to schedule.
@@ -78,7 +78,7 @@ To diagnose problems with a VPA installation, perform the following steps:
 - Check if all system components are running:
 
 ```console
-kubectl --namespace=kube-system get pods|grep vpa
+sudo k0s --namespace=kube-system get pods|grep vpa
 ```
 
 The above command should list 3 pods (recommender, updater and admission-controller)
@@ -88,11 +88,11 @@ all in state Running.
   For each of the pods returned by the previous command do:
 
 ```console
-kubectl --namespace=kube-system logs [pod name] | grep -e '^E[0-9]\{4\}'
+sudo k0s --namespace=kube-system logs [pod name] | grep -e '^E[0-9]\{4\}'
 ```
 
 - Check that the VPA Custom Resource Definition was created:
 
 ```console
-kubectl get customresourcedefinition | grep verticalpodautoscalers
+sudo k0s get customresourcedefinition | grep verticalpodautoscalers
 ```

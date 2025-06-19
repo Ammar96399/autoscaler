@@ -46,7 +46,7 @@ REQUIRED_COMMANDS="
 docker
 go
 kind
-kubectl
+sudo k0s
 make
 "
 

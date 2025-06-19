@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cat <<EOF | kubectl apply -f -
+cat <<EOF | sudo k0s apply -f -
 apiVersion: v1
 kind: Secret
 metadata:

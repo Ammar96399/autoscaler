@@ -25,7 +25,7 @@ function print_help {
 }
 
 # Requires input from stdin, otherwise hangs. If the input is a Deployment manifest,
-# apply kubectl patch to add feature gates specified in the FEATURE_GATES environment variable.
+# apply sudo k0s patch to add feature gates specified in the FEATURE_GATES environment variable.
 # e.g. cat file.yaml | apply_feature_gate
 function apply_feature_gate() {
   local input=""
@@ -36,9 +36,9 @@ function apply_feature_gate() {
   # matching precisely "kind: Deployment" to avoid matching "kind: DeploymentConfig" or a line with extra whitespace
   if echo "$input" | grep -qE '^kind: Deployment$'; then
     if [ -n "${FEATURE_GATES}" ]; then
-      if ! echo "$input" | kubectl patch --type=json --local -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--feature-gates='"${FEATURE_GATES}"'"}]' -o yaml -f - 2>/dev/null; then
+      if ! echo "$input" | sudo k0s patch --type=json --local -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--feature-gates='"${FEATURE_GATES}"'"}]' -o yaml -f - 2>/dev/null; then
         # If it fails, there was no args field, so we need to add it
-        echo "$input" | kubectl patch --type=json --local -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args", "value": ["--feature-gates='"${FEATURE_GATES}"'"]}]' -o yaml -f -
+        echo "$input" | sudo k0s patch --type=json --local -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args", "value": ["--feature-gates='"${FEATURE_GATES}"'"]}]' -o yaml -f -
       fi
     else
       echo "$input"

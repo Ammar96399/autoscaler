@@ -176,7 +176,7 @@ Now the ASG tags must have the correct values as well as the custom tag to be su
 Example deployment:
 
 ```
-kubectl apply -f examples/cluster-autoscaler-autodiscover.yaml
+sudo k0s apply -f examples/cluster-autoscaler-autodiscover.yaml
 ```
 
 Cluster Autoscaler will respect the minimum and maximum values of each Auto
@@ -308,13 +308,13 @@ Examples:
 ### One ASG Setup (min: 1, max: 10, ASG Name: k8s-worker-asg-1)
 
 ```
-kubectl apply -f examples/cluster-autoscaler-one-asg.yaml
+sudo k0s apply -f examples/cluster-autoscaler-one-asg.yaml
 ```
 
 ### Multiple ASG Setup
 
 ```
-kubectl apply -f examples/cluster-autoscaler-multi-asg.yaml
+sudo k0s apply -f examples/cluster-autoscaler-multi-asg.yaml
 ```
 
 <!--TODO: Remove "previously referred to as master" references from this doc once this terminology is fully removed from k8s-->
@@ -329,7 +329,7 @@ Please replace `{{ node_asg_min }}`, `{{ node_asg_max }}` and `{{ name }}` with
 your ASG setting in the yaml file.
 
 ```
-kubectl apply -f examples/cluster-autoscaler-run-on-control-plane.yaml
+sudo k0s apply -f examples/cluster-autoscaler-run-on-control-plane.yaml
 ```
 
 ## Using Mixed Instances Policies and Spot Instances
@@ -442,7 +442,7 @@ If you want to use custom AWS cloud config e.g. endpoint urls
 
 1. Create ConfigMap with cloud config file definition (see [example](examples/configmap-cloudconfig-example.yaml)):
    ```shell
-   kubectl apply -f examples/configmap-cloudconfig-example.yaml
+   sudo k0s apply -f examples/configmap-cloudconfig-example.yaml
    ```
 2. Add the following in your `values.yaml`:
     ```yaml

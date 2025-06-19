@@ -18,7 +18,7 @@ The cluster and node groups must be specified in the autoscaler cloud configurat
 
 Copy [examples/deployment.yaml](examples/deployment.yaml) and modify the configuration as needed, see below
 regarding the required configuration values and format. When the configuraiont is ready, deploy it to your cluster
-e.g. using `kubectl apply -f deployment.yaml`.
+e.g. using `sudo k0s apply -f deployment.yaml`.
 
 ## Configuration
 
@@ -147,7 +147,7 @@ go test -v k8s.io/autoscaler/cluster-autoscaler/cloudprovider/kamatera
 Setup a Kamatera cluster, you can use [this guide](https://github.com/Kamatera/rancher-kubernetes/blob/main/README.md)
 
 Get the cluster kubeconfig and set in local file and set in the `KUBECONFIG` environment variable.
-Make sure you are connected to the cluster using `kubectl get nodes`.
+Make sure you are connected to the cluster using `sudo k0s get nodes`.
 Create a cloud config file according to the above documentation and set it's path in `CLOUD_CONFIG_FILE` env var.
 
 Build the binary and run it:

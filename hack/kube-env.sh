@@ -36,7 +36,7 @@ function kube_server_version() {
   # This sed expression is the POSIX BRE to match strings like:
   # Server Version: &version.Info{Major:"0", Minor:"7+", GitVersion:"v0.7.0-dirty", GitCommit:"ad44234f7152e9c66bc2853575445c7071335e57", GitTreeState:"dirty"}
   # and capture the GitVersion portion (which has the patch level)
-  server_version=$(${KUBECTL} --match-server-version=false version | grep "Server Version:")
+  server_version=$(${sudo k0s} --match-server-version=false version | grep "Server Version:")
   read major minor patch < <(
     echo ${server_version} | \
       sed "s/.*GitVersion:\"v\([0-9]\{1,\}\)\.\([0-9]\{1,\}\)\.\([0-9]\{1,\}\).*/\1 \2 \3/")

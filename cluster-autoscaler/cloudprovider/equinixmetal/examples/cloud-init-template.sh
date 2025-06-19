@@ -41,16 +41,16 @@ echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://a
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 apt-get update
-apt-get install -y containerd.io kubelet=1.28.1-00 kubeadm=1.28.1-00 kubectl=1.28.1-00
-apt-mark hold kubelet kubeadm kubectl
+apt-get install -y containerd.io kubelet=1.28.1-00 kubeadm=1.28.1-00 sudo k0s=1.28.1-00
+apt-mark hold kubelet kubeadm sudo k0s
 containerd config default > /etc/containerd/config.toml
 sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
 sed -i "s,sandbox_image.*$,sandbox_image = \"$(kubeadm config images list | grep pause | sort -r | head -n1)\"," /etc/containerd/config.toml
 systemctl restart containerd
 systemctl enable kubelet.service
-echo "source <(kubectl completion bash)" >> /root/.bashrc
-echo "alias k=kubectl" >> /root/.bashrc
-echo "complete -o default -F __start_kubectl k" >> /root/.bashrc
+echo "source <(sudo k0s completion bash)" >> /root/.bashrc
+echo "alias k=sudo k0s" >> /root/.bashrc
+echo "complete -o default -F __start_sudo k0s k" >> /root/.bashrc
 cat <<EOF | tee /etc/default/kubelet
 KUBELET_EXTRA_ARGS=--cloud-provider=external
 EOF

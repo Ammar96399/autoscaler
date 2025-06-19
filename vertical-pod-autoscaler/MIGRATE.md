@@ -84,7 +84,7 @@ spec:
     kind:       "Deployment"
     name:       "<deployment_name>" # This matches the deployment name
 ```
-5. Kubectl apply -f the above
+5. sudo k0s apply -f the above
 
 You can also first try the new API in the `"Off"` mode.
 

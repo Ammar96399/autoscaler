@@ -100,7 +100,7 @@ These resources are overwritten by analogous values specified in a ConfigMap
 
 Find version of addon running in your cluster:
 ```
-kubectl get deployments -n kube-system -l k8s-app=$ADDON_NAME -L version
+sudo k0s get deployments -n kube-system -l k8s-app=$ADDON_NAME -L version
 
 # set env variables to received values, for example:
 ADDON_DEPLOYMENT=heapster-v1.5.0
@@ -111,20 +111,20 @@ Find the resource parameters for version of the addon running in your clusters,
 for example:
 
 ```
-kubectl logs -n kube-system -l k8s-app=$ADDON_NAME -l version=$ADDON_VERSION -c
+sudo k0s logs -n kube-system -l k8s-app=$ADDON_NAME -l version=$ADDON_VERSION -c
 $ADDON_NAME-nanny | head -n 1
 ```
 
 You can also see total values computed for addon container CPU and memory
 requirements by inspecting full deployment specification:
 ```
-kubectl get deployment -n kube-system $ADDON_DEPLOYMENT -o yaml
+sudo k0s get deployment -n kube-system $ADDON_DEPLOYMENT -o yaml
 ```
 
 ### View current configuration
 
 ```
-kubectl get configmap -n kube-system $ADDON_NAME-config -o yaml
+sudo k0s get configmap -n kube-system $ADDON_NAME-config -o yaml
 ```
 
 By default the configuration is empty:
@@ -149,7 +149,7 @@ missing, empty or incorrect, Addon Resizer will fall back to default
 configuration.
 
 ```
-kubectl edit configmap -n kube-system $ADDON_NAME-config -o yaml
+sudo k0s edit configmap -n kube-system $ADDON_NAME-config -o yaml
 ```
 
 Set values for CPU and memory configuration using predefined options (they are
@@ -181,7 +181,7 @@ metadata:
 Restart the addon. One way to do it is to delete addon deployment and wait for
 controller manager to re-create it:
 ```
-kubectl delete deployment -n kube-system $ADDON_DEPLOYMENT
+sudo k0s delete deployment -n kube-system $ADDON_DEPLOYMENT
 ```
 
 ### Reset a configuration to default values
@@ -190,11 +190,11 @@ To reset a configuration, just remove it and let it be recreated by addon
 manager:
 
 ```
-kubectl delete configmap -n kube-system $ADDON_NAME-config
+sudo k0s delete configmap -n kube-system $ADDON_NAME-config
 ```
 
 Then reset the addon itself using the same method:
 
 ```
-kubectl delete deployment -n kube-system $ADDON_DEPLOYMENT
+sudo k0s delete deployment -n kube-system $ADDON_DEPLOYMENT
 ```

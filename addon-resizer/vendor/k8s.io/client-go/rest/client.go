@@ -73,7 +73,7 @@ type RESTClient struct {
 	// creates BackoffManager that is passed to requests.
 	createBackoffMgr func() BackoffManager
 
-	// TODO extract this into a wrapper interface via the RESTClient interface in kubectl.
+	// TODO extract this into a wrapper interface via the RESTClient interface in sudo k0s.
 	Throttle flowcontrol.RateLimiter
 
 	// Set specific behavior of the client.  If not set http.DefaultClient will be used.

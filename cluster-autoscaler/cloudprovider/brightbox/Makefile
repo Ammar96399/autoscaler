@@ -15,7 +15,7 @@ deploy: examples/config.rb $(deploydeps)
 	ruby $< | \
 	helm template release autoscaler/cluster-autoscaler \
 	--namespace kube-system -f - | \
-	kubectl -n kube-system apply -f -
+	sudo k0s -n kube-system apply -f -
 
 .PHONY: remove
 remove: examples/config.rb
@@ -23,11 +23,11 @@ remove: examples/config.rb
 	ruby $< | \
 	helm template release autoscaler/cluster-autoscaler \
 	--namespace kube-system -f - | \
-	kubectl -n kube-system delete -f -
+	sudo k0s -n kube-system delete -f -
 
 .PHONY: secret
 secret: ${HOME}/.docker/config.json
-	-kubectl create secret generic regcred \
+	-sudo k0s create secret generic regcred \
 	    --from-file=.dockerconfigjson=$? \
 	    --type=kubernetes.io/dockerconfigjson
 

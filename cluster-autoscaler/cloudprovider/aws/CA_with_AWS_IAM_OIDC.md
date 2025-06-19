@@ -3,7 +3,7 @@
 
 #### Prerequisites 
 
-  - An Active EKS cluster (1.14 preferred since it is the latest) against which the user is able to run kubectl commands. 
+  - An Active EKS cluster (1.14 preferred since it is the latest) against which the user is able to run sudo k0s commands. 
   - Cluster must consist of at least one worker node ASG. 
 
 A) Create an IAM OIDC identity provider for your cluster with the AWS Management Console using the [documentation] . 
@@ -144,8 +144,8 @@ metadata:
 - Following this setup, you can test if the cluster-autoscaler kicked in and if the role was attached using the below commands:
 
 ```sh
-$ kubectl get pods -n kube-system
-$ kubectl exec -n kube-system cluster-autoscaler-xxxxxx-xxxxx  env | grep AWS
+$ sudo k0s get pods -n kube-system
+$ sudo k0s exec -n kube-system cluster-autoscaler-xxxxxx-xxxxx  env | grep AWS
 ```
 
 Output of the exec command should ideally display the values for AWS_REGION, AWS_ROLE_ARN and AWS_WEB_IDENTITY_TOKEN_FILE where the role arn must be the same as the role provided in the service account annotations. 
@@ -153,10 +153,10 @@ Output of the exec command should ideally display the values for AWS_REGION, AWS
 The cluster autoscaler scaling the worker nodes can also be tested: 
 
 ```sh
-$ kubectl scale deployment autoscaler-demo --replicas=50
+$ sudo k0s scale deployment autoscaler-demo --replicas=50
 deployment.extensions/autoscaler-demo scaled
  
-$ kubectl get deployment
+$ sudo k0s get deployment
 NAME              READY   UP-TO-DATE   AVAILABLE   AGE
 autoscaler-demo   55/55   55           55          143m
 ```
